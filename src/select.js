@@ -31,7 +31,7 @@ class Select extends BaseElement {
           font-size: inherit;
           border-radius: 0;
           border: 1px solid var(--hintColor);
-          background-color: transparent;
+          background-color: #fff;
           color: var(--color);
           width: 100%;
         }

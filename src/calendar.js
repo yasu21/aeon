@@ -76,9 +76,16 @@ class Calendar extends BaseElement {
           justify-content: center;
 
           position: relative;
-          z-index: 1;
+          z-index: 1000;
           padding: 0.2rem;
           background-color: var(--bgColor);
+          border: 1px solid #ccc;
+          width: 100%;
+        }
+        @media (min-width: 1050px) {
+          :host {
+          width: 300px;
+          }
         }
 
         :host([open]) {
@@ -91,13 +98,33 @@ class Calendar extends BaseElement {
           justify-content: center;
         }
 
-        .day, .date, button {
+        .day, .date {
           color: var(--color);
-          background-color: transparent;
+          background-color: background-color: #fff;
           border: 0;
           box-sizing: border-box;
-          width: 2.4rem;
+          width: 13%;
           height: 2.4rem;
+          padding: 0;
+          font-family: inherit;
+          font-size: calc(2.4rem / 3);
+
+          text-transform: uppercase;
+
+          flex-grow: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        button {
+          color: var(--color);
+          background-color: #fff;
+          border: 0;
+          box-sizing: border-box;
+          width: 60px;
+          height: 55px;
           padding: 0;
           font-family: inherit;
           font-size: calc(2.4rem / 3);
@@ -114,7 +141,11 @@ class Calendar extends BaseElement {
         .date {
           border: 1px solid var(--hintColor);
           border-width: 0 0 1px 1px;
+          background: #fff;
+          cursor: pointer;
         }
+
+        .spacer {background:transparent}
 
         .date:last-child {
           border-right-width: 1px;
@@ -135,6 +166,7 @@ class Calendar extends BaseElement {
 
         .date.today {
           font-weight: bold;
+          color:#007fff;
         }
 
         .date:hover, .date.today {
@@ -147,16 +179,21 @@ class Calendar extends BaseElement {
         }
 
         #buttons {
-          width: 100%;
+          width: 95%;
           display: flex;
           justify-content: space-between;
-          margin-top: 0.5em;
-          border-top: 1px solid var(--hintColor);
+          margin: 0.5em auto;
+          pdding-top:5px;
         }
 
-        #year-month, #hours-minutes {
+        #year-month{
           display: flex;
-          width: 100%;
+          width: 108%;
+        }
+
+        #hours-minutes {
+          display: flex;
+          width: 90%;
         }
 
         #year-month aeon-select {
@@ -164,20 +201,17 @@ class Calendar extends BaseElement {
         }
 
         #year-month aeon-select + aeon-select {
-          margin-left: 0.5rem;
+          margin-left: 3px;
         }
 
         #hours-minutes {
-          padding-top: 0.5em;
-          margin-top: 0.5em;
-          border-top: 1px solid var(--hintColor);
           display: none;
           justify-content: center;
           align-items: center;
         }
 
         #hours-minutes aeon-select {
-          width: 3.5rem;
+          width: 5rem;
         }
 
         #hours-minutes aeon-select#hours {
@@ -190,33 +224,74 @@ class Calendar extends BaseElement {
 
         :host([show-time]) #hours-minutes {
           display: flex;
+          padding-left:20px;
+        }
+
+        :focus{outline:none;}
+
+        #confirm , #cancel , #clear{
+          cursor: pointer;
+          background: #fff;
+          width: 30%;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+        }
+
+        #cancel:hover , #clear:hover , #confirm:hover{
+          color:#007fff;
+        }
+        #container{
+          width:100%;
+          padding-top: 3px;
+        }
+        .box{
+          display: table-cell;
+          vertical-align: middle;
+        }
+        .boxContainer{
+          width: 92%;
+          display: table;
+          table-layout: fixed;
+          margin:0 auto;
+        }
+        @media screen and ( max-width:640px) {
+          #container{width:95%;}
         }
       </style>
 
       <div id="container">
-        <div id="year-month">
-          <aeon-select id="year"></aeon-select>
-          <aeon-select id="month"></aeon-select>
+        <div class="boxContainer">
+          <div class="box">
+            <div id="year-month" class="box">
+              <aeon-select id="year"></aeon-select>
+              <aeon-select id="month"></aeon-select>
+            </div>
+          </div>
+          <div class="box">
+            <div id="hours-minutes">
+              <aeon-select id="hours"></aeon-select>:<aeon-select id="minutes"></aeon-select>
+            </div>
+          </div>
         </div>
         <div id="calendar"></div>
-        <div id="hours-minutes">
-          <aeon-select id="hours"></aeon-select>:<aeon-select id="minutes"></aeon-select>
-        </div>
         <div id="buttons">
           <button id="confirm" title="Confirm">
-            <svg width="24" height="24">
+            <svg width="24" height="26">
               <g><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></g>
             </svg>
+            Ok
           </button>
           <button id="cancel" title="Cancel">
-            <svg width="24" height="24">
+            <svg width="24" height="26">
               <g><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></g>
             </svg>
+            Close
           </button>
           <button id="clear" title='Clear'>
-            <svg width="24" height="24">
+            <svg width="24" height="26">
               <g><path fill="currentColor" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></g>
             </svg>
+            Clear
           </button>
         </div>
       </div>

@@ -64,7 +64,7 @@ class DatePicker extends BaseElement {
     this.alignTop = false;
     this.alignRight = false;
     this.dateStyle = {};
-    this.startYear = now.getFullYear() - 100;
+    this.startYear = now.getFullYear() - 5;
     this.endYear = now.getFullYear() + 5;
     this.startDay = 1;
 
@@ -131,20 +131,25 @@ class DatePicker extends BaseElement {
         aeon-calendar {
           position: absolute;
           top: 100%;
-          left: 0;
+          left: 0%;
         }
 
         :host([align-top]) aeon-calendar {
           top: auto;
-          bottom: 100%;
+          bottom: auto;
         }
 
         :host([align-right]) aeon-calendar {
-          left: auto;
-          right: 0;
+          left: -5%;
         }
 
-        @media (max-width: 640px) {
+        @media (min-width: 1005px) {
+          :host([align-right]) aeon-calendar {
+            left: 0%;
+          }
+        }
+
+        @media (max-width: 740px) {
           aeon-calendar,
           :host([align-top]) aeon-calendar,
           :host([align-right]) aeon-calendar {
@@ -178,12 +183,12 @@ class DatePicker extends BaseElement {
 
       if (this._dateInput) {
         this._output.placeholder = this._dateInput.placeholder;
+
         (this._dateInput.labels || []).forEach(labelEl => {
           labelEl.addEventListener('click', this.onLabelClick);
         });
         this.date = this._dateInput.value;
       }
-
       this._timeInput = elements.find(el => el.getAttribute('type') === 'time');
 
       if (this._timeInput) {
@@ -194,6 +199,8 @@ class DatePicker extends BaseElement {
 
     this._output = document.createElement('input');
     this._output.slot = 'output';
+    this._output.name = 'date_label';
+    this._output.id = 'date_label';
     this._output.readOnly = true;
     this._output.addEventListener('click', () => {
       this.openCalendar();
