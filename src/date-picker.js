@@ -200,7 +200,8 @@ class DatePicker extends BaseElement {
     this._output = document.createElement('input');
     this._output.slot = 'output';
     this._output.name = 'date_label';
-    this._output.id = 'date_label';
+    //this._output.id = 'date_label';
+    this._output.className = 'date_label';
     this._output.readOnly = true;
     this._output.addEventListener('click', () => {
       this.openCalendar();
