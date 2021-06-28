@@ -188,12 +188,12 @@ class Calendar extends BaseElement {
 
         #year-month{
           display: flex;
-          width: 108%;
+          width: 100%;
         }
 
         #hours-minutes {
           display: flex;
-          width: 90%;
+          width: 95%;
         }
 
         #year-month aeon-select {
@@ -211,7 +211,7 @@ class Calendar extends BaseElement {
         }
 
         #hours-minutes aeon-select {
-          width: 5rem;
+          width: 49%;
         }
 
         #hours-minutes aeon-select#hours {
@@ -224,7 +224,7 @@ class Calendar extends BaseElement {
 
         :host([show-time]) #hours-minutes {
           display: flex;
-          padding-left:20px;
+          padding-left:5%;
         }
 
         :focus{outline:none;}
@@ -249,7 +249,7 @@ class Calendar extends BaseElement {
           vertical-align: middle;
         }
         .boxContainer{
-          width: 92%;
+          width: 95%;
           display: table;
           table-layout: fixed;
           margin:0 auto;
